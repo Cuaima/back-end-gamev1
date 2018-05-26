@@ -26,6 +26,10 @@ let GameController = class GameController {
         return entity_1.default.merge(game, update).save();
     }
     createGame(game) {
+        console.log(game, '-test');
+        const colorList = ["red", "blue", "green", "yellow", "magenta"];
+        const color = () => colorList[Math.floor(Math.random() * colorList.length)];
+        game.color = color();
         return game.save();
     }
 };
