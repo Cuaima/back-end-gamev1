@@ -4,6 +4,9 @@
   "main": "target/index.js",
   "author": "Claudia Groot <cl@udia.me>",
   "license": "MIT",
+  "scripts": {
+    "start": "node ."
+  },
   "dependencies": {
     "@types/koa": "^2.0.45",
     "@types/koa-bodyparser": "^4.2.0",
@@ -13,6 +16,8 @@
     "koa-bodyparser": "^4.2.1",
     "koa-multer": "^1.0.2",
     "koa-router": "^7.4.0",
-    "routing-controllers": "^0.7.7"
+    "pg": "^7.4.3",
+    "routing-controllers": "^0.7.7",
+    "typeorm": "^0.2.6"
   }
 }
