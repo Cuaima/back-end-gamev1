@@ -1,6 +1,8 @@
 import { JsonController, Get, Param, Put, Body, NotFoundError, Post, HttpCode } from 'routing-controllers'
 import Game from './entity';
 
+const colorList = ["red", "blue", "green", "yellow", "magenta"] //variables
+
 @JsonController()
 export default class GameController {
 
@@ -10,6 +12,16 @@ export default class GameController {
     return { games }
     }
 
+    @Post('/games')
+    @HttpCode(201)
+    createGame(
+    @Body() game: Game    
+    ) {
+    const changeColor = () => colorList[Math.floor(Math.random() * colorList.length)] //functions
+    game.color = changeColor()
+    return game.save()
+    }
+
     @Put('/games/:id')
     async updateGame(
     @Param('id') id: number,
@@ -17,28 +29,10 @@ export default class GameController {
     ) {
     const game = await Game.findOne(id)
     if (!game) throw new NotFoundError('Cannot find game')
+    console.log(game, 'hi, this is game')
+    // let findColor = colorList.find((color)=> game.color)
 
     return Game.merge(game, update).save()
-    }
-
-    // @Post('/games')
-    // @HttpCode(201)
-    // createGame(
-    // @Body() game: Game
-    // ) {
-    // return game.save()
-    // }
-
-    @Post('/games')
-    @HttpCode(201)
-    createGame(
-    @Body() game: Game    
-    ) {
-    console.log(game, '-test')
-    const colorList = ["red", "blue", "green", "yellow", "magenta"]
-    const color = () => colorList[Math.floor(Math.random() * colorList.length)]
-    game.color = color()
-    return game.save()
     }
 
 }
