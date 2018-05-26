@@ -29,9 +29,8 @@ export default class GameController {
     ) {
     const game = await Game.findOne(id)
     if (!game) throw new NotFoundError('Cannot find game')
-    console.log(game, 'hi, this is game')
     // let findColor = colorList.find((color)=> game.color)
-
+    console.log(Game)
     return Game.merge(game, update).save()
     }
 
