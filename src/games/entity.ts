@@ -29,7 +29,7 @@ export default class Game extends BaseEntity {
     //     if (data) this.board = JSON.stringify(data);
     //     else this.data = null;
 //     }
-  @IsJSON() //not working
-  @Column("json") //"simple-json"
+  // @IsJSON() //not working
+  @Column('json') //"simple-json"
   board: {}
 }
