@@ -34,9 +34,9 @@ export default class GameController {
     //Question: wouldn't an easier way to implement the one move per turn policy be to have a move column that updates the board? Or would that actually be more complicated?
     
     //Note: The logic for the single move allowed function should be here. 
-    //Basically I would run the provided `moves` function and detect if the number of moves were greater than one, and if so, throw a similar error to the one in the code above.
-    //However due to the type of array and the conversions I created, it would seem I would need to transform both 'update.board and game.board' to arrays before being able to map through them.
-    //Given more time, I would be able to find the core issue.
+    //Basically, I would run the provided `moves` function and detect if the number of moves were greater than one, and if so, throw a similar error to the one in the code above.
+    //However, I am somehow unable to map through the arrays. Given more time, I would be able to find the core of the issue.
+    //For a test case of this implementation, please check out the readme file.
     return Game.merge(game, update).save()
     }
 
