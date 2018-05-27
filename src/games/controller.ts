@@ -1,5 +1,6 @@
-import { JsonController, Get, Param, Put, Body, NotFoundError, Post, HttpCode } from 'routing-controllers'
+import { JsonController, Get, Param, Put, Body, NotFoundError, Post, HttpCode, BadRequestError } from 'routing-controllers'
 import Game from './entity';
+import { throws } from 'assert';
 // import {jsonBoard} from './library';
 
 const colorList = ["red", "blue", "green", "yellow", "magenta"] //variables
@@ -33,7 +34,7 @@ export default class GameController {
     const game = await Game.findOne(id)
     if (!game) throw new NotFoundError('Cannot find game')
     update.id = undefined
-    // if (update.color !== undefined && colorList.includes(update.color))
+    if (update.color !== undefined && !colorList.includes(update.color)) throw new BadRequestError('Please choose an allowed color')
     // let findColor = colorList.find((color)=> game.color)
     console.log(Game)
     return Game.merge(game, update).save()

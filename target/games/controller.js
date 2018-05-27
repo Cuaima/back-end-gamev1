@@ -30,6 +30,8 @@ let GameController = class GameController {
         if (!game)
             throw new routing_controllers_1.NotFoundError('Cannot find game');
         update.id = undefined;
+        if (update.color !== undefined && !colorList.includes(update.color))
+            throw new routing_controllers_1.BadRequestError('Please choose an allowed color');
         console.log(entity_1.default);
         return entity_1.default.merge(game, update).save();
     }
