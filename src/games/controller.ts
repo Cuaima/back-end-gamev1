@@ -1,9 +1,6 @@
 import { JsonController, Get, Param, Put, Body, NotFoundError, Post, HttpCode, BadRequestError } from 'routing-controllers'
 import Game from './entity';
-import {jsonBoard} from './library';
-
-const colorList = ["red", "blue", "green", "yellow", "magenta"] //variables
-
+import {jsonBoard, moves, changeColor, colorList} from './library';
 
 @JsonController()
 export default class GameController {
@@ -19,7 +16,6 @@ export default class GameController {
     createGame(
     @Body() game: Game    
     ) {
-    const changeColor = () => colorList[Math.floor(Math.random() * colorList.length)] //functions
     game.color = changeColor()
     game.board = jsonBoard
     return game.save()
@@ -34,6 +30,8 @@ export default class GameController {
     if (!game) throw new NotFoundError('Cannot find game')
     update.id = undefined
     if (update.color !== undefined && !colorList.includes(update.color)) throw new BadRequestError('Please choose an allowed color')
+    console.log('************This is game board-->',game.board, '**************This is update board-->', update.board)
+    // if (update.board !== undefined && moves(game.board, update.board)> 1) throw new BadRequestError('Please make only one move per turn')
     return Game.merge(game, update).save()
     }
 

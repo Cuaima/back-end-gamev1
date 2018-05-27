@@ -15,15 +15,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const routing_controllers_1 = require("routing-controllers");
 const entity_1 = require("./entity");
 const library_1 = require("./library");
-const colorList = ["red", "blue", "green", "yellow", "magenta"];
 let GameController = class GameController {
     async allGames() {
         const games = await entity_1.default.find();
         return { games };
     }
     createGame(game) {
-        const changeColor = () => colorList[Math.floor(Math.random() * colorList.length)];
-        game.color = changeColor();
+        game.color = library_1.changeColor();
         game.board = library_1.jsonBoard;
         return game.save();
     }
@@ -32,8 +30,9 @@ let GameController = class GameController {
         if (!game)
             throw new routing_controllers_1.NotFoundError('Cannot find game');
         update.id = undefined;
-        if (update.color !== undefined && !colorList.includes(update.color))
+        if (update.color !== undefined && !library_1.colorList.includes(update.color))
             throw new routing_controllers_1.BadRequestError('Please choose an allowed color');
+        console.log('************This is game board-->', game.board, '**************This is update board-->', update.board);
         return entity_1.default.merge(game, update).save();
     }
 };
