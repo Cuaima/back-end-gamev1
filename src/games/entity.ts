@@ -8,6 +8,8 @@ export default class Game extends BaseEntity {
   @PrimaryGeneratedColumn()
   id?: number
 
+  //For some unknown reason, my code transforms numbers in this column to string instead of throwing an error when a number is given.
+  //More time is needed to research this bug/feature. 
   @IsString()
   @Column('text', {nullable:false})
   name: string
@@ -16,7 +18,7 @@ export default class Game extends BaseEntity {
   @Column('text', {nullable:false})
   color: string
 
-  @IsJSON() //not working
-  @Column('json') //"simple-json"
+  @IsJSON()
+  @Column('json')
   board: {}
 }
