@@ -14,6 +14,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const routing_controllers_1 = require("routing-controllers");
 const entity_1 = require("./entity");
+const library_1 = require("./library");
 const colorList = ["red", "blue", "green", "yellow", "magenta"];
 let GameController = class GameController {
     async allGames() {
@@ -23,6 +24,7 @@ let GameController = class GameController {
     createGame(game) {
         const changeColor = () => colorList[Math.floor(Math.random() * colorList.length)];
         game.color = changeColor();
+        game.board = library_1.jsonBoard;
         return game.save();
     }
     async updateGame(id, update) {
@@ -32,7 +34,6 @@ let GameController = class GameController {
         update.id = undefined;
         if (update.color !== undefined && !colorList.includes(update.color))
             throw new routing_controllers_1.BadRequestError('Please choose an allowed color');
-        console.log(entity_1.default);
         return entity_1.default.merge(game, update).save();
     }
 };
