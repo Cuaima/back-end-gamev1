@@ -1,6 +1,6 @@
 import { JsonController, Get, Param, Put, Body, NotFoundError, Post, HttpCode, BadRequestError } from 'routing-controllers'
 import Game from './entity';
-import {jsonBoard, changeColor, colorList} from './library';
+import {jsonBoard, changeColor, colorList, moves} from './library';
 
 @JsonController()
 export default class GameController {
@@ -32,7 +32,8 @@ export default class GameController {
     update.id = undefined
     if (update.color !== undefined && !colorList.includes(update.color)) throw new BadRequestError('Please choose an allowed color')
     //Question: wouldn't an easier way to implement the one move per turn policy be to have a move column that updates the board? Or would that actually be more complicated?
-    
+    if (update.board !== undefined && moves(update.board,game.board)>1){ console.log('There\'s more than one item that is different!')}
+ 
     //Note: The logic for the single move allowed function should be here. 
     //Basically, I would run the provided `moves` function and detect if the number of moves were greater than one, and if so, throw a similar error to the one in the code above.
     //However, I am somehow unable to map through the arrays. Given more time, I would be able to find the core of the issue.
